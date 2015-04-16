@@ -1,0 +1,23 @@
+{
+  "name": "stat",
+  "version": "1.0.0",
+  "description": "show statistics of LOL",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:FengSeaDroid/lolStat.git"
+  },
+  "keywords": [
+    "lol",
+    "statistics"
+  ],
+  "author": "Feng Wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FengSeaDroid/lolStat/issues"
+  },
+  "homepage": "https://github.com/FengSeaDroid/lolStat"
+}
