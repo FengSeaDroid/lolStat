@@ -10,7 +10,7 @@ angular.module("lolStat")
             $http.get('/api/userBasic?name=' + name).
                 success(function (data, status, headers, config) {
                     console.info(data);
-                    $scope.user = data[name];
+                    $scope.user = data;
                     angular.element('#playerName').val("Find").prop('disabled', false);
                 });
         }
