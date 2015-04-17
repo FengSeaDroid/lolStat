@@ -1,10 +1,10 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var UserBasicSchema = new Schema({
-    name: String,
-    id: Number,
+    name: {type: String, unique: true},
+    id: {type: Number, unique: true},
     profileIconId: Number,
-    revisionDate: Number,
+    revisionDate: Date,
     summonerLevel: Number
 });
 mongoose.model('UserBasic', UserBasicSchema);

@@ -8,10 +8,9 @@ angular.module("lolStat")
             $scope.loading = true;
             angular.element('#playerName').val("Loading...").prop('disabled', true);
             $http.get('/api/userBasic/' + name).
-                success(function (data, status, headers, config) {
+                success(function (data) {
                     console.info(data);
                     $scope.user = data;
-                    $scope.user.revisionDate = new Date($scope.user.revisionDate).toUTCString();
                     angular.element('#playerName').val("Find").prop('disabled', false);
                 });
         }
