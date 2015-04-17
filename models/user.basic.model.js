@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var UserBasicSchema = new Schema({
     name: String,
-    id: String,
+    id: Number,
     profileIconId: Number,
     revisionDate: Number,
     summonerLevel: Number

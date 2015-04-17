@@ -14,8 +14,8 @@ describe('server', function () {
                 .get('http://localhost:' + port + '/api/userBasic?name=Ohhhq')
                 .end(function (err, res) {
                     expect(res.status).to.equal(200);
-                    expect(res.body['ohhhq'].id).to.equal(42762376);
-                    done()
+                    expect(res.body.id).to.equal(42762376);
+                    done();
                 })
         });
 
