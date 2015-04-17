@@ -23,6 +23,7 @@
   "homepage": "https://github.com/FengSeaDroid/lolStat",
   "dependencies": {
     "express": "latest",
+    "mongoose": "^4.0.1",
     "superagent": "latest"
   },
   "devDependencies": {
