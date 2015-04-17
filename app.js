@@ -1,6 +1,22 @@
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello ffff\n');
-}).listen(1337, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
+var express = require('./config/express');
+var app = express();
+
+var boot = function () {
+    app.server = app.listen(app.get('port'), function () {
+        console.info('Express server listening on port ' + app.get('port'));
+    });
+};
+
+var shutdown = function () {
+    app.server.close();
+};
+
+if (require.main === module) {
+    boot();
+}
+else {
+    console.info('Running app as a module');
+    exports.boot = boot;
+    exports.shutdown = shutdown;
+    exports.port = app.get('port');
+}
