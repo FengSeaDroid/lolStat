@@ -2,13 +2,13 @@ var UserBasic = require('mongoose').model('UserBasic');
 
 exports.basic = function (request, response) {
     var user = {};
-    UserBasic.findOne({name: request.query.name.toLowerCase()}, function (err, result) {
+    UserBasic.findOne({name: request.params.name.toLowerCase()}, function (err, result) {
         if (err) {
             return error;
         } else {
             user = result;
             if (!user)
-                user = readAndSave(request.query.name.toLowerCase(), response);
+                user = readAndSave(request.params.name.toLowerCase(), response);
             else
                 response.json(user);
         }
