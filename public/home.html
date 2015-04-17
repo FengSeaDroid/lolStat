@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="lolStat">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>lol stat app</title>
+    <title>LOL Stat App</title>
+
+    <script src="http://code.jquery.com/jquery-2.1.3.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="https://code.angularjs.org/1.3.15/angular-resource.js"></script>
+    <script src="https://code.angularjs.org/1.3.15/angular-route.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/controller/userDetailControl.js"></script>
+
 </head>
 <body>
-Angular place holder
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/">User Query<span class="sr-only">(current)</span></a></li>
+                <li><a href="#/ranking">Ranking</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<ng-view/>
 </body>
+<script>
+    //Nav bar display current active tab
+    $(".nav a").on("click", function () {
+        $(".nav").find(".active").removeClass("active");
+        $(this).parent().addClass("active");
+    });
+</script>
 </html>

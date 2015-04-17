@@ -1,0 +1,30 @@
+<div ng-controller="userDetailControl">
+
+    <div>
+        <form ng-submit="find(input.username)" class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-1">Query Name</label>
+
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" ng-model="input.username" placeholder="Username" autofocus/>
+                </div>
+                <div class="col-sm-1">
+                    <input type="submit" id="playerName" class="btn btn-primary form-control" value="Find"/>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="userBasic panel panel-info">
+        <div class="panel-heading">Basic User Info</div>
+        <div class="panel-body">
+            <div ng-hide="user">Please enter player name. <span class="spinner" ng-show="loading"><i class="fa fa-spinner fa-pulse"></i></span></div>
+
+            <div ng-hide="!user">
+                <br> Player Name: {{user.name}}
+                <br> Player ID: {{user.id}}
+                <br> Summoner Level: {{user.summonerLevel}}
+            </div>
+        </div>
+    </div>
+</div>
