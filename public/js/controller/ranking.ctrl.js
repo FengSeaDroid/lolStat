@@ -5,10 +5,12 @@ angular.module("lolStat")
         $scope.isSolo = $scope.mode.split('_')[1]==='SOLO';
         $scope.rankings =  {};
 
+
+        $scope.loading = true;
         $http.get('/api/rankings/' + $scope.mode).
             success(function (data, status, headers, config) {
-                console.info(data);
                 $scope.rankings = data;
+                $scope.loading = false;
             });
 
     });

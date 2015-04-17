@@ -1,14 +1,17 @@
 <div ng-controller="rankingCtrl">
 
     <ul class="nav nav-tabs">
-        <li role="presentation" ng-class="{active: mode==='RANKED_SOLO_5x5'}"><a href="#rankings?mode=RANKED_SOLO_5x5">RANKED_SOLO_5x5</a></li>
-        <li role="presentation" ng-class="{active: mode==='RANKED_TEAM_3x3'}"><a href="#/rankings?mode=RANKED_TEAM_3x3">RANKED_TEAM_3x3</a></li>
-        <li role="presentation" ng-class="{active: mode==='RANKED_TEAM_5x5'}"><a href="#/rankings?mode=RANKED_TEAM_5x5">RANKED_TEAM_5x5</a></li>
+        <li role="presentation" ng-class="{active: mode==='RANKED_SOLO_5x5'}"><a href="#rankings?mode=RANKED_SOLO_5x5">RANKED_SOLO_5x5</a>
+        </li>
+        <li role="presentation" ng-class="{active: mode==='RANKED_TEAM_3x3'}"><a href="#/rankings?mode=RANKED_TEAM_3x3">RANKED_TEAM_3x3</a>
+        </li>
+        <li role="presentation" ng-class="{active: mode==='RANKED_TEAM_5x5'}"><a href="#/rankings?mode=RANKED_TEAM_5x5">RANKED_TEAM_5x5</a>
+        </li>
     </ul>
 
     <div class="userBasic panel panel-info">
         <div class="panel-heading">
-            {{rankings.name}} -- {{rankings.tier}}
+            <span ng-show="loading"><i class="fa fa-spinner fa-pulse"></i></span><span ng-hide="loading">{{rankings.name}} -- {{rankings.tier}}</span>
         </div>
         <div class="panel-body">
             <div ng-repeat="entry in rankings.entries" class="well">
