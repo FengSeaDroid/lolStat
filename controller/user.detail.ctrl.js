@@ -4,18 +4,23 @@ exports.basic = function (request, response) {
     var user = {};
     UserBasic.findOne({name: request.params.name.toLowerCase()}, function (err, result) {
         if (err) {
-            return error;
+            return err;
         } else {
             user = result;
             if (!user)
-                user = readAndSave(request.params.name.toLowerCase(), response);
-            else
+                user = readAndSaveBasic(request.params.name.toLowerCase(), response);
+            else {
                 response.json(user);
+            }
         }
     });
 };
 
-function readAndSave(username, response) {
+exports.matchHistory = function (request, response) {
+    response.json(request.params.id);
+};
+
+function readAndSaveBasic(username, response) {
     require("superagent")
         .get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + username + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
         .end(function (err, data) {

@@ -1,4 +1,4 @@
-<div ng-controller="userDetailControl">
+<div ng-controller="userDetailCtrl">
 
     <div>
         <form ng-submit="find(input.username)" class="form-horizontal">
@@ -18,12 +18,14 @@
     <div class="userBasic panel panel-info">
         <div class="panel-heading">Basic User Info</div>
         <div class="panel-body">
-            <div ng-hide="user">Please enter player name. <span class="spinner" ng-show="loading"><i class="fa fa-spinner fa-pulse"></i></span></div>
+            <div ng-hide="user">Please enter player name. <span class="spinner" ng-show="loading"><i
+                    class="fa fa-spinner fa-pulse"></i></span></div>
 
             <div ng-hide="!user">
                 <br> Player Name: {{user.name}}
                 <br> Player ID: {{user.id}}
                 <br> Summoner Level: {{user.summonerLevel}}
+                <br> Last Modified Date: {{user.revisionDate}}
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 angular.module("lolStat")
-    .controller("userDetailControl", function ($scope, $http) {
+    .controller("userDetailCtrl", function ($scope, $http) {
 
         $scope.user = null;
         $scope.loading = false;
@@ -11,6 +11,7 @@ angular.module("lolStat")
                 success(function (data, status, headers, config) {
                     console.info(data);
                     $scope.user = data;
+                    $scope.user.revisionDate = new Date($scope.user.revisionDate).toUTCString();
                     angular.element('#playerName').val("Find").prop('disabled', false);
                 });
         }

@@ -1,8 +1,8 @@
 angular.module("lolStat", ["ngRoute"])
     .config(function ($routeProvider) {
 
-        $routeProvider.when("/ranking", {
-            templateUrl: "/views/ranking.html"
+        $routeProvider.when("/rankings", {
+            templateUrl: "/views/rankings.html"
         });
 
         $routeProvider.otherwise({
