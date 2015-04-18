@@ -1,14 +1,15 @@
 angular.module("lolStat", ["ngRoute"])
     .config(function ($routeProvider) {
-        $routeProvider.when("/", {
+        $routeProvider.when("/user", {
             templateUrl: "/views/user.html"
-        });
-
-        $routeProvider.when("/rankings", {
+        }).when("/rankings", {
             templateUrl: "/views/rankings.html"
+        }).otherwise({
+            redirectTo: '/user'
         });
-
-        $routeProvider.otherwise({
-            redirectTo: '/'
-        });
+    })
+    .controller("appCtrl", function ($scope,$location) {
+        $scope.isActive = function (route) {
+            return route === $location.path();
+        }
     });

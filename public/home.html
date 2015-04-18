@@ -20,24 +20,17 @@
     <script src="js/controller/rankings.ctrl.js"></script>
 
 </head>
-<body>
+<body ng-controller="appCtrl">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">User Query<span class="sr-only">(current)</span></a></li>
-                <li><a href="#/rankings">Ranking</a></li>
+                <li ng-class="{active:isActive('/user')}"><a href="#/user">User Query<span class="sr-only">(current)</span></a></li>
+                <li ng-class="{active:isActive('/rankings')}"><a href="#/rankings">Ranking</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <Section data-ng-view></Section>
 </body>
-<script>
-    //Nav bar display current active tab
-    $(".nav a").on("click", function () {
-        $(".nav").find(".active").removeClass("active");
-        $(this).parent().addClass("active");
-    });
-</script>
 </html>
