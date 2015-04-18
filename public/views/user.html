@@ -40,7 +40,7 @@
                 <br>Start Time: {{match.matchCreation | date:'yyyy-MM-dd HH:mm:ss Z'}}
                 <br>Queue Type : {{match.queueType}}
                 <br>Result: {{match.participants[0].stats.winner ? 'Won' : 'Lost'}}
-                <br>Duration: {{match.duration/60 +':'+match.duration%60}}
+                <br>Duration: {{match.matchDuration/60 | number:0}}:{{(match.matchDuration%60<10?'0':'')+match.matchDuration%60}}
                 <br>Match Id: {{match.matchId}}
             </div>
 
