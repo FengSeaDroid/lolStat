@@ -36,6 +36,7 @@
         <div class="panel-body" ng-show="user">
             <div ng-repeat="match in matches"
                  ng-class="match.participants[0].stats.winner ? 'alert alert-success' : 'alert alert-danger'">
+                <br>Champion: {{match.participants[0].championId}}
                 <br>Mode: {{match.matchMode}}
                 <br>Start Time: {{match.matchCreation | date:'yyyy-MM-dd HH:mm:ss Z'}}
                 <br>Queue Type : {{match.queueType}}

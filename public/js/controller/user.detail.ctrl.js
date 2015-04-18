@@ -15,7 +15,7 @@ angular.module("lolStat")
                     $http.get('/api/matchHistory/' + $scope.user.id)
                         .success(function (data) {
                             console.log(data);
-                            $scope.matches = data.matches;
+                            $scope.matches = data;
                             $scope.loading = false;
                         });
                 });
