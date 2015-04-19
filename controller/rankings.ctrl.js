@@ -9,7 +9,9 @@ module.exports = function (req, res) {
         } else {
             rankings = result;
             if (!rankings)
-                rankings = readAndSave(req.params.mode, res);
+                rankings = readAndSave(req.params.mode, function (rankings) {
+                    res.json(rankings);
+                });
             else if (rankings.age > MAX_AGE) {
                 rankings.remove(function (err) {
                     if (err) res.status(500).json(err);
@@ -26,18 +28,6 @@ module.exports = function (req, res) {
 };
 
 function readAndSave(mode, callBack) {
-    require("superagent")
-        .get('https://na.api.pvp.net/api/lol/na/v2.5/league/master?type=' + mode + '&api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
-        .end(function (err, data) {
-            if (err) {
-            } else {
-                var rankings = new Rankings(data.body);
-                rankings.save(function (saveerr) {
-                    if (saveerr) {
-                    } else {
-                        callBack(rankings);
-                    }
-                });
-            }
-        });
+    var url = 'https://na.api.pvp.net/api/lol/na/v2.5/league/master?type=' + mode + '&api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22';
+    require('../service/commons').readAndSave(url, Rankings, callBack);
 }

@@ -3,17 +3,13 @@ var Match = require('mongoose').model('Match');
 exports.findOne = function (req, res) {
     var match = {};
     Match.findOne({matchId: req.params.matchId}, function (err, result) {
-        if (err) {
-            res.status(500).json(err);
-        } else {
-            match = result;
-            if (!match)
-                match = readAndSave(req.params.matchId, function (match) {
-                    res.json(match)
-                });
-            else {
+        match = result;
+        if (!match)
+            match = readAndSave(req.params.matchId, function (match) {
                 res.json(match);
-            }
+            });
+        else {
+            res.json(match);
         }
     });
 };
@@ -21,45 +17,45 @@ exports.findOne = function (req, res) {
 exports.matchHistory = function (request, response) {
     Match.find({'participantIdentities.player.summonerId': request.params.summonerId}).sort('-matchCreation').limit(5).exec(function (err, matches) {
         if (matches.length < 5) {
-            var beforeLength = matches.length;
+            matches = [];
             require("superagent")
-                .get('https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + request.params.summonerId + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
+                .get('https://na.api.pvp.net/api/lol/na/v2.2/matchhistory/' + request.params.summonerId + '?beginIndex=0&endIndex=5&api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
                 .end(function (err, data) {
-                    if (err) {
-                        response.status(500).json(err);
-                    } else {
-                        console.log(data.body.matches.length);
+                    if (data.body['matches']) {
                         data.body.matches.forEach(function (elem) {
-                            readAndSave(elem.matchId, function (match) {
-                                matches.push(match);
-                                if (matches.length === data.body.matches.length + beforeLength) {
-                                    response.json(matches.sort(function (a, b) {
-                                        return b.matchCreation - a.matchCreation;
-                                    }).slice(0, 5));
+                            Match.findOne({matchId: elem.matchId}, function (err, result) {
+                                if (!result) {
+                                    readAndSave(elem.matchId, pushToOutput);
+                                } else {
+                                    pushToOutput(result);
                                 }
                             })
                         });
-
-                    }
+                        function pushToOutput(match) {
+                            matches.push(match);
+                            if (matches.length === data.body.matches.length) {
+                                response.json(matches.sort(function (a, b) {
+                                    return b.matchCreation - a.matchCreation;
+                                }).map(findSummonerParticipantId));
+                            }
+                        }
+                    } else
+                        response.json([]);
                 });
         } else
-            response.json(matches);
+            response.json(matches.map(findSummonerParticipantId));
     });
+    function findSummonerParticipantId(match) {
+        match = match.toObject();
+        match.thisParticipantId = match.participantIdentities.filter(function (elem) {
+            return elem.player.summonerId == request.params.summonerId;
+        })[0].participantId;
+        return match;
+    }
 };
 
 function readAndSave(matchId, callBack) {
-    require("superagent")
-        .get('https://na.api.pvp.net/api/lol/na/v2.2/match/' + matchId + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
-        .end(function (err, data) {
-            if (err) {
-            } else {
-                var match = new Match(data.body);
-                match.save(function (saveerr) {
-                    if (saveerr) {
-                    } else {
-                        callBack(match);
-                    }
-                });
-            }
-        });
+    var url = 'https://na.api.pvp.net/api/lol/na/v2.2/match/' + matchId + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22';
+    require('../service/commons').readAndSave(url, Match, callBack);
 }
+

@@ -7,6 +7,7 @@ var MatchSchema = new Schema({
     matchCreation: Date,
     matchDuration: Number,
     queueType: String,
+    map: Number,
     mapId: Number,
     season: String,
     matchVersion: String,
@@ -29,4 +30,14 @@ var MatchSchema = new Schema({
         }
     }]
 });
+
+//MatchSchema.pre('save', function (next) {
+//    var Map = require('mongoose').model('Map');
+//    Map.findOne({mapId: this.mapId}, function (err, data) {
+//        console.log(data._id);
+//        this.map = data._id;
+//        next();
+//    })
+//});
+
 mongoose.model('Match', MatchSchema);

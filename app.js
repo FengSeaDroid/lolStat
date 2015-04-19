@@ -7,6 +7,7 @@ var db = mongoose();
 var app = express();
 
 var boot = function () {
+    require('./service/commons').updateStaticInfo();
     app.server = app.listen(app.get('port'), function () {
         console.info('Express server listening on port ' + app.get('port'));
     });

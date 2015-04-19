@@ -19,19 +19,6 @@ exports.basic = function (request, response) {
 };
 
 function readAndSaveBasic(username, callBack) {
-    require("superagent")
-        .get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + username + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
-        .end(function (err, data) {
-            if (err) {
-            } else {
-                var userBasic = new UserBasic(data.body[username]);
-                userBasic.name = userBasic.name.toLowerCase();
-                userBasic.save(function (saveerr) {
-                    if (saveerr) {
-                    } else {
-                        callBack(userBasic);
-                    }
-                });
-            }
-        });
+    var url = 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + username + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22';
+    require('../service/commons').readAndSave(url, UserBasic, callBack, username);
 }

@@ -31,18 +31,23 @@
     </div>
 
     <div class="match-history panel panel-info">
-        <div class="panel-heading">Last 10 Matches <span class="spinner" ng-show="loading"><i
+        <div class="panel-heading">Recent Matches <span class="spinner" ng-show="loading"><i
                 class="fa fa-spinner fa-pulse"></i></span></div>
         <div class="panel-body" ng-show="user">
             <div ng-repeat="match in matches"
-                 ng-class="match.participants[0].stats.winner ? 'alert alert-success' : 'alert alert-danger'">
-                <br>Champion: {{match.participants[0].championId}}
+                 ng-class="match.participants[match.thisParticipantId].stats.winner ? 'alert alert-success' : 'alert alert-danger'">
+                <br>Champion: {{(champions | filter : {id : match.participants[match.thisParticipantId].championId})[0].name}}
                 <br>Mode: {{match.matchMode}}
                 <br>Start Time: {{match.matchCreation | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                <br>Map: {{ (maps | filter : {mapId : match.mapId})[0].mapName }}
                 <br>Queue Type : {{match.queueType}}
-                <br>Result: {{match.participants[0].stats.winner ? 'Won' : 'Lost'}}
-                <br>Duration: {{match.matchDuration/60 | number:0}}:{{(match.matchDuration%60<10?'0':'')+match.matchDuration%60}}
+                <br>Result: {{match.participants[match.thisParticipantId].stats.winner ? 'Won' : 'Lost'}}
+                <br>Kills: {{match.participants[match.thisParticipantId].stats.kills}}
+                <br>Duration: {{match.matchDuration / 60 | number : 0}}:{{(match.matchDuration % 60 < 10 ? '0' : '') + match.matchDuration % 60}}
                 <br>Match Id: {{match.matchId}}
+            </div>
+            <div ng-show="user&&(matches.length===0)">
+                No recent match found.
             </div>
 
         </div>
