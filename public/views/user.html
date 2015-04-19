@@ -3,15 +3,15 @@
     <div>
         <form ng-submit="find(input.username)" class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-1">Query Name</label>
+                <label class="control-label col-md-2">Query Name</label>
 
-                <div class="col-sm-2">
+                <div class="col-md-3">
                     <input type="text" class="form-control" ng-model="input.username" placeholder="Username" autofocus/>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2">
                     <input type="submit" id="playerName" class="btn btn-primary form-control" value="Find"/>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-2">
                     <button class="btn btn-primary form-control" value="Find" ng-click="update()" onclick="return false;" ng-disabled="loading"> Update</button>
                 </div>
             </div>
