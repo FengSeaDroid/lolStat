@@ -30,7 +30,7 @@ describe('Rankings Model Unit Tests:', function () {
                 saveDate = new Date();
                 Rankings.findOne({queue: 'mock rankings'}, function (err, data) {
                     should.exist(data);
-                    data.createDate.getSeconds().should.be.exactly(saveDate.getSeconds());
+                    data.createDate.getMinutes().should.be.exactly(saveDate.getMinutes());
                     done();
                 })
             });

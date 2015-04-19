@@ -10,7 +10,7 @@ describe('Champion Model Unit Tests:', function () {
         champion = new Champion({
             key: 'key',
             name: 'Feng',
-            id: 1,
+            id: 777,
             title: 'The job seeker'
         });
         done();

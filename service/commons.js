@@ -13,36 +13,49 @@ exports.readAndSave = function (url, Model, callBack, responseAttribute) {
         });
 };
 
-exports.updateStaticInfo = function () {
-    updateChampion();
-    updateMap();
-    console.log("Finished updating static info")
+exports.updateStaticInfo = function (callBack) {
+    updateChampion(function () {
+        if(callBack)
+            updateMap(callBack);
+        else
+            updateMap(function () {
+                console.log('finished updating.')
+            });
+    });
 };
 
-function updateChampion() {
+function updateChampion(callBack) {
     var Champion = require('mongoose').model('Champion');
     require("superagent")
         .get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
         .end(function (err, data) {
             var champions = data.body.data;
+            var accumulator = [], count = 0;
             for (var key in champions) {
                 if (champions.hasOwnProperty(key)) {
+                    ++count;
                     Champion.findOneAndUpdate({id: champions[key].id}, champions[key], {upsert: true}, function (saveErr) {
+                        accumulator.push(1);
+                        if (accumulator.length === count) callBack();
                     })
                 }
             }
         });
 }
 
-function updateMap() {
+function updateMap(callBack) {
     var Map = require('mongoose').model('Map');
     require("superagent")
         .get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/map?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22')
         .end(function (err, data) {
             var maps = data.body.data;
+            var accumulator = [], count = 0;
             for (var key in maps) {
                 if (maps.hasOwnProperty(key)) {
+                    ++count;
                     Map.findOneAndUpdate({mapId: maps[key].mapId}, maps[key], {upsert: true}, function (saveErr) {
+                        accumulator.push(1);
+                        if (accumulator.length === count) callBack();
                     })
                 }
             }

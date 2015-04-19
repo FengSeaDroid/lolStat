@@ -17,11 +17,18 @@ angular.module("lolStat")
         $scope.find = function (name) {
             $scope.loading = true;
             angular.element('#playerName').val("Loading...").prop('disabled', true);
-            $http.get('/api/userBasic/' + name)
+            $http.get('/api/userBasic/' + name.trim())
                 .success(function (data) {
                     $scope.user = data;
                     angular.element('#playerName').val("Find").prop('disabled', false);
                     getRecentMatches();
+                })
+                .error(function (err) {
+                    $scope.loading = false;
+                    angular.element('.summonerName').val("User not found");
+                    angular.element('#playerName').val("Find Again").prop('disabled', false);
+                    $scope.user = null;
+                    $scope.matches = null;
                 });
         };
 

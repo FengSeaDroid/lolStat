@@ -9,7 +9,12 @@ exports.basic = function (request, response) {
             user = result;
             if (!user)
                 user = readAndSaveBasic(request.params.name.toLowerCase(), function (userBasic) {
-                    response.json(userBasic);
+                    if(userBasic['id'])
+                        response.json(userBasic);
+                    else{
+                        response.status(404);
+                        response.send();
+                    }
                 });
             else {
                 response.json(user);

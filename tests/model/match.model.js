@@ -8,7 +8,7 @@ var match;
 describe('Match Model Unit Tests:', function () {
     beforeEach(function (done) {
         match = new Match({
-            matchId:1,
+            matchId: 1,
             mapId: 1
         });
         done();
