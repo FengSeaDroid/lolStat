@@ -24,5 +24,7 @@ else {
     console.info('Running app as a module');
     exports.boot = boot;
     exports.shutdown = shutdown;
+    exports.app = app;
+    exports.db = db;
     exports.port = app.get('port');
 }

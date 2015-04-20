@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node-dev app.js",
-    "test": "set NODE_ENV=test&&mocha tests --recursive"
+    "test": "set NODE_ENV=test&& mocha tests --recursive"
   },
   "repository": {
     "type": "git",

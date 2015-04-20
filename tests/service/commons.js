@@ -30,6 +30,7 @@ describe('Commons Unit Tests:', function () {
             });
 
         });
+
         afterEach(function (done) {
             Champion.remove(function () {
                 Map.remove(function () {
@@ -51,6 +52,7 @@ describe('Commons Unit Tests:', function () {
                 })
             });
         });
+
         afterEach(function (done) {
             Match.remove(function () {
                 done();
