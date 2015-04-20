@@ -1,3 +1,7 @@
+/**
+ * Champion model
+ */
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var ChampionSchema = new Schema({

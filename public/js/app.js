@@ -9,6 +9,9 @@ angular.module("lolStat", ["ngRoute"])
         });
     })
     .controller("appCtrl", function ($scope,$location) {
+        /**
+         * Used for highlighting navbar items.
+         */
         $scope.isActive = function (route) {
             return route === $location.path();
         }

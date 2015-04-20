@@ -1,3 +1,7 @@
+/**
+ * Path to serve the homepage.
+ */
+
 var path = require("path");
 
 module.exports = function(app) {

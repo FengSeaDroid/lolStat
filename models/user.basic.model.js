@@ -1,3 +1,7 @@
+/**
+ * User basic model
+ */
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var UserBasicSchema = new Schema({

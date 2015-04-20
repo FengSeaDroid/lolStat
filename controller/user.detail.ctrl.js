@@ -1,5 +1,14 @@
+/**
+ * User Detail Controller
+ */
+
 var UserBasic = require('mongoose').model('UserBasic');
 
+/**
+ * Get the summoner basic info with a given summoner name.
+ * @param request   request.params.name represents the summoner name.
+ * @param response
+ */
 exports.basic = function (request, response) {
     var user = {};
     UserBasic.findOne({name: request.params.name.toLowerCase()}, function (err, result) {
@@ -23,6 +32,11 @@ exports.basic = function (request, response) {
     });
 };
 
+/**
+ * Read the summoner basic info from riot api and save to db.
+ * @param username  Summoner name.
+ * @param callBack  Callback when the basic info is saved.
+ */
 function readAndSaveBasic(username, callBack) {
     var url = 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + username + '?api_key=48bb8ab1-2559-4225-949b-f9b45ea77e22';
     require('../service/commons').readAndSave(url, UserBasic, callBack, username);

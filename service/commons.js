@@ -1,3 +1,12 @@
+/**
+ * Commmon function for read an entity from a remote api and save to db.
+ * @param url       The remote api for fetching the object.
+ * @param Model     The Model schema for saving the object.
+ * @param callBack  When saved callBack will be invoked.
+ * @param responseAttribute
+ *                   If the object of interest is an attribute of the json object provided by the
+ *                   remote api call, use this parameter to retrieve only that attribute.
+ */
 exports.readAndSave = function (url, Model, callBack, responseAttribute) {
     require("superagent")
         .get(url)
@@ -13,6 +22,10 @@ exports.readAndSave = function (url, Model, callBack, responseAttribute) {
         });
 };
 
+/**
+ * Update static info of the game.
+ * @param callBack  callback will be invoked after static info is updated.
+ */
 exports.updateStaticInfo = function (callBack) {
     updateChampion(function () {
         if(callBack)
@@ -24,6 +37,9 @@ exports.updateStaticInfo = function (callBack) {
     });
 };
 
+/**
+ * Update all champions.
+ */
 function updateChampion(callBack) {
     var Champion = require('mongoose').model('Champion');
     require("superagent")
@@ -43,6 +59,9 @@ function updateChampion(callBack) {
         });
 }
 
+/**
+ * Update all maps.
+ */
 function updateMap(callBack) {
     var Map = require('mongoose').model('Map');
     require("superagent")

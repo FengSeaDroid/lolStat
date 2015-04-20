@@ -1,3 +1,8 @@
+/**
+ * Rankings model.
+ * Rankings has a virtual attribute age, which is the days between it was created and now.
+ */
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var RankingsSchema = new Schema({

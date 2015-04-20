@@ -1,4 +1,8 @@
+/**
+ * Settings used for development
+ */
 module.exports = {
     db: 'mongodb://localhost/lol-stat',
-    sessionSecret: 'developmentSessionSecret'
-};
+    port: 3000
+}
+;

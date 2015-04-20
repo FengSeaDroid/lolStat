@@ -1,11 +1,19 @@
+/**
+ * Entrance point of the lol game statistics application.
+ */
+
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var mongoose = require('./config/mongoose'),
-    express = require('./config/express');
+/**
+ * Configure mongoose and express
+ */
+var db = require('./config/mongoose')(),
+    app = require('./config/express')();
 
-var db = mongoose();
-var app = express();
-
+/**
+ * Setting up web server.
+ */
 var boot = function () {
     require('./service/commons').updateStaticInfo();
     app.server = app.listen(app.get('port'), function () {
@@ -13,14 +21,19 @@ var boot = function () {
     });
 };
 
+/**
+ * Server shutdown.
+ */
 var shutdown = function () {
     app.server.close();
 };
 
+/**
+ * If run with main thread start server, otherwise exports major functionalities.
+ */
 if (require.main === module) {
     boot();
-}
-else {
+} else {
     console.info('Running app as a module');
     exports.boot = boot;
     exports.shutdown = shutdown;

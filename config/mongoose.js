@@ -1,3 +1,7 @@
+/**
+ * Mongoose configuration.
+ * @type {*|exports}
+ */
 var config = require('./config'),
     mongoose = require('mongoose');
 
